@@ -1,48 +1,62 @@
 const Header = (props) => {
   return (
-    <h1>{props.course}</h1>
+    <h1>{props.course.name}</h1>
   )
 }
 
 const Part = (props) => {
   return (
     <p>
-      {props.content}  {props.exercises}
+      {props.content} {props.exercises}
     </p>
   )
 }
 
 
 const Content = (props) => {
-  console.log(props)
   return (
     <div>
-      <Part content={props.content[0]} exercises={props.exercises[0]} />
-      <Part content={props.content[1]} exercises={props.exercises[1]}/>
-      <Part content={props.content[2]} exercises={props.exercises[2]} />
+      <Part content={props.parts.parts[0].name} exercises={props.parts.parts[0].exercises}/>
+      <Part content={props.parts.parts[1].name} exercises={props.parts.parts[1].exercises}/>
+      <Part content={props.parts.parts[2].name} exercises={props.parts.parts[2].exercises}/>
     </div>
     
   )
 }
 
 const Total = (props) => {
+  console.log(props)
   return (
     <p>
-      Number of exercises {props.total}
+      Number of exercises {props.parts.parts[0].exercises + props.parts.parts[1].exercises + props.parts.parts[2].exercises}
     </p>
   )
 }
 
 const App = () => {
-  const course = 'Desenvolvimento de aplicação Half Stack'
-  const parts = ['Fundamentos da biblioteca React', 'Usando props para passar dados', 'Estado de um componente']
-  const exercises = [10, 7, 14]
+  const course = {
+    name: 'Desenvolvimento de aplicação Half Stack',
+    parts: [
+      {
+        name: 'Fundamentos da biblioteca React',
+        exercises: 10
+      },
+      {
+        name: 'Usando props para passar dados',
+        exercises: 7
+      },
+      {
+        name: 'Estado de um componente',
+        exercises: 14
+      }
+    ]
+  }
 
-  return (
+   return (
     <div>
-      <Header course={course}  />
-      <Content content={parts} exercises={exercises}/>
-      <Total total={exercises[0] + exercises[1] + exercises[2]}/>
+      <Header course={course} />
+      <Content parts={course} />
+      <Total parts={course} />
     </div>
   )
 }
